@@ -1,12 +1,14 @@
 ﻿using Dalamud.Hooking;
 using Dalamud.Memory;
 using Dalamud.Utility.Signatures;
+using FFXIVClientStructs.Attributes;
 using FFXIVClientStructs.FFXIV.Client.Game;
 using FFXIVClientStructs.FFXIV.Client.Game.Control;
 using FFXIVClientStructs.FFXIV.Client.Game.Object;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,7 +43,9 @@ namespace AutoRetainer
         {
             if(InteractWithObjectHook == null ) 
             {
-                InteractWithObjectHook = Hook<InteractWithObjectDelegate>.FromAddress((nint)TargetSystem.Addresses.InteractWithObject.Value, InteractWithObjectDetour);
+                var methodIfno = typeof(TargetSystem).GetMethod("InteractWithObject").GetCustomAttribute<MemberFunctionAttribute>();
+
+                InteractWithObjectHook = Hook<InteractWithObjectDelegate>.FromAddress(Svc.SigScanner.ScanText(methodIfno.Signature), InteractWithObjectDetour);
                 InteractWithObjectHook.Enable();
             }
         }

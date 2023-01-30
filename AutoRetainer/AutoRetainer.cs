@@ -102,10 +102,17 @@ public class AutoRetainer : IDalamudPlugin
 
     private void Tick(Framework framework)
     {
-        OfflineDataManager.Tick();
-        AutoGCHandin.Tick();
-        MultiMode.Tick();
-        NotificationHandler.Tick();
+        try
+        {
+            OfflineDataManager.Tick();
+            AutoGCHandin.Tick();
+            MultiMode.Tick();
+            NotificationHandler.Tick();
+        }
+        catch (Exception ex)
+        {
+            PluginLog.Error(ex.ToString());
+        }
     }
 
     private void Toasts_ErrorToast(ref Dalamud.Game.Text.SeStringHandling.SeString message, ref bool isHandled)
