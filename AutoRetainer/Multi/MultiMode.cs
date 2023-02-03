@@ -208,7 +208,7 @@ internal unsafe static class MultiMode
         }
         else
         {
-            AutoLogin.Instance.SwapCharacter(data.World, data.CharaIndex, data.ServiceAccount);
+            AutoLogin.Instance.SwapCharacter(data.World, data.CharaIndex, data.ServiceAccount, data.Name);
             return true;
         }
         return false;

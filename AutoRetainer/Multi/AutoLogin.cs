@@ -48,7 +48,7 @@ internal unsafe class AutoLogin
         PluginLog.Information("Autologin module initialized");
     }
 
-    internal void SwapCharacter(string WorldName, uint characterIndex, int serviceAccount)
+    internal void SwapCharacter(string WorldName, uint characterIndex, int serviceAccount,string? characterName =null)
     {
 
         var world = Svc.Data.Excel.GetSheet<World>()?.FirstOrDefault(w => w.Name.ToDalamudString().TextValue.Equals(WorldName, StringComparison.InvariantCultureIgnoreCase));
@@ -70,18 +70,23 @@ internal unsafe class AutoLogin
             PluginLog.Error("Invalid Service account Index. Must be between 0 and 9.");
             return;
         }
-
+        if(characterName == null)
+        {
+            PluginLog.Error($"'{characterName}' is not a valid world name.");
+            return;
+        }
         tempDc = world.DataCenter.Row;
         tempWorld = world.RowId;
         tempCharacter = characterIndex;
         tempServiceAccount = serviceAccount;
+        tempCharacterName = characterName;
         actionQueue.Clear();
         actionQueue.Enqueue(VariableDelay(5));
         actionQueue.Enqueue(Logout);
         actionQueue.Enqueue(SelectYesLogout);
         actionQueue.Enqueue(VariableDelay(5));
         actionQueue.Enqueue(OpenDataCenterMenu);
-        actionQueue.Enqueue(SelectDataCentre);
+        //actionQueue.Enqueue(SelectDataCentre);
         actionQueue.Enqueue(SelectServiceAccount);
         actionQueue.Enqueue(SelectWorld);
         actionQueue.Enqueue(VariableDelay(10));
@@ -170,8 +175,8 @@ internal unsafe class AutoLogin
     {
         var addon = (AtkUnitBase*)Svc.GameGui.GetAddonByName("_TitleMenu", 1);
         if (addon == null || addon->IsVisible == false) return false;
-        GenerateCallback(addon, 12);
-        var nextAddon = (AtkUnitBase*)Svc.GameGui.GetAddonByName("TitleDCWorldMap", 1);
+        GenerateCallback(addon, 1);
+        var nextAddon = (AtkUnitBase*)Svc.GameGui.GetAddonByName("NowLoading", 1);
         if (nextAddon == null) return false;
         return true;
     }
@@ -249,7 +254,20 @@ internal unsafe class AutoLogin
         // Select Character
         var addon = (AtkUnitBase*)Svc.GameGui.GetAddonByName("_CharaSelectListMenu", 1);
         if (addon == null || tempCharacter == null) return false;
-        GenerateCallback(addon, 17, 0, tempCharacter);
+        var stringArray = FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->UIModule->GetRaptureAtkModule()->AtkModule.AtkArrayDataHolder.StringArrays[1];
+        if (stringArray != null)
+        {
+            for(var i =60;i < 68;i++)
+            {
+                var n = stringArray->StringArray[i];
+                if (n == null) continue;
+                var s = MemoryHelper.ReadStringNullTerminated(new IntPtr(n));
+                if (s.Trim().Length == 0) continue;
+                if (s != tempCharacterName) continue;
+                GenerateCallback(addon, 17, 0, i-60);
+            }
+        }
+        else GenerateCallback(addon, 17, 0, tempCharacter);
         var nextAddon = (AtkUnitBase*)Svc.GameGui.GetAddonByName("SelectYesno", 1);
         return nextAddon != null;
     }
@@ -301,6 +319,7 @@ internal unsafe class AutoLogin
         tempDc = null;
         tempCharacter = null;
         tempServiceAccount = 0;
+        tempCharacterName = null;
         return true;
     }
 
@@ -309,6 +328,7 @@ internal unsafe class AutoLogin
     private uint? tempWorld = null;
     private uint? tempCharacter = null;
     private int tempServiceAccount = 0;
+    private string? tempCharacterName = null;
 
     internal void DrawUI()
     {
