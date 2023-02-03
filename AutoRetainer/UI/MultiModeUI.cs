@@ -160,6 +160,11 @@ internal unsafe static class MultiModeUI
                         e.Log();
                     }
                 }
+                ImGui.SameLine();
+                if(ImGui.Button($"Delete##Delete{index}"))
+                {
+                    P.config.OfflineData.Remove(x);
+                }
                 ImGuiEx.Text($"Ventures: {x.Ventures}");
                 ImGui.SameLine();
                 ImGuiEx.Text($"Inventory slots: {x.InventorySpace}");
