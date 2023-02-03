@@ -11,6 +11,7 @@ using ECommons.Events;
 using PunishLib;
 using PunishLib.Sponsor;
 using ECommons.Automation;
+using System.IO;
 
 namespace AutoRetainer;
 
@@ -42,6 +43,8 @@ public class AutoRetainer : IDalamudPlugin
             configGui = new();
             TaskManager = new() { AbortOnTimeout = true };
             Memory = new();
+            Environment.CurrentDirectory = pi.AssemblyLocation.Directory.FullName;
+            Language.Language.Instance = Language.LanguageManager.Init(config.LanguageType);
             Svc.PluginInterface.UiBuilder.Draw += ws.Draw;
             Svc.PluginInterface.UiBuilder.OpenConfigUi += delegate { configGui.IsOpen = true; };
             Svc.ClientState.Logout += Logout;

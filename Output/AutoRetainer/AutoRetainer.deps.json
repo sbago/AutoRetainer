@@ -11,7 +11,8 @@
           "ClickLib": "1.2.0.1",
           "DalamudPackager": "2.1.10",
           "ECommons": "2.0.0.3",
-          "PunishLib": "1.0.1.2"
+          "PunishLib": "1.0.1.2",
+          "Samboy063.Tomlet": "5.1.2"
         },
         "runtime": {
           "AutoRetainer.dll": {}
@@ -24,6 +25,14 @@
           "lib/net6.0/Reloaded.Memory.dll": {
             "assemblyVersion": "7.1.0.0",
             "fileVersion": "7.1.0.0"
+          }
+        }
+      },
+      "Samboy063.Tomlet/5.1.2": {
+        "runtime": {
+          "lib/net6.0/Tomlet.dll": {
+            "assemblyVersion": "5.1.2.0",
+            "fileVersion": "5.1.2.0"
           }
         }
       },
@@ -74,6 +83,13 @@
       "sha512": "sha512-4Y5tCsRWdW/shj9W7RqJq37LStuW1VVtjxsBp4LKZilPcjudeQg9k+u+6fnDgacCEJiG3S2EtcaiNtVMTdaSnQ==",
       "path": "reloaded.memory/7.1.0",
       "hashPath": "reloaded.memory.7.1.0.nupkg.sha512"
+    },
+    "Samboy063.Tomlet/5.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BQUfup0RZAnvYh1ok4ojihlv5SezjTI2krTxp04m5LDBwurRm5+4ONALeGlW2Syeexs1d5yftnZGz+qtVRcrMQ==",
+      "path": "samboy063.tomlet/5.1.2",
+      "hashPath": "samboy063.tomlet.5.1.2.nupkg.sha512"
     },
     "ClickLib/1.2.0.1": {
       "type": "project",

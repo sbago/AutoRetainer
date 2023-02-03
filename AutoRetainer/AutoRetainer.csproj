@@ -54,6 +54,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="DalamudPackager" Version="2.1.10" />
+		<PackageReference Include="Samboy063.Tomlet" Version="5.1.2" />
 		<Reference Include="Newtonsoft.Json">
 			<HintPath>$(DalamudLibPath)Newtonsoft.Json.dll</HintPath>
 			<Private>False</Private>
@@ -86,5 +87,13 @@
 			<HintPath>$(DalamudLibPath)PInvoke.User32.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="Language\Lan_CN.toml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Language\Lan_EN.toml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 </Project>

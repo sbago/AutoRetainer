@@ -12,16 +12,16 @@ internal unsafe static class MultiModeUI
     {
         if(MultiMode.GetAutoAfkOpt() != 0)
         {
-            ImGuiEx.TextWrapped(ImGuiColors.DalamudRed, "Multi Mode requires Auto-afk option to be turned off");
+            ImGuiEx.TextWrapped(ImGuiColors.DalamudRed, Language.Language.Instance.TextWrapped_MultiMode);
         }
-        ImGuiEx.TextWrapped(ImGuiColors.DalamudOrange, "Please use this feature within the sane limits. Keeping it on for abnormally large amount of time may attract unwanted attention.");
-        if (ImGui.CollapsingHeader("Setup Guide"))
+        ImGuiEx.TextWrapped(ImGuiColors.DalamudOrange, Language.Language.Instance.TextWrapped_Please);
+        if (ImGui.CollapsingHeader(Language.Language.Instance.CollapsingHeader_SetupGuide))
         {
-            ImGuiEx.TextWrapped("1. Log into each of your characters, assign necessary ventures to your retainers and enable retainers that you want to resend on each character.");
-            ImGuiEx.TextWrapped("2. For each character, configure character index. Character index is position of your character on a screen where you select characters. If you only have one character per world, it's usually just 1.");
-            ImGuiEx.TextWrapped("3. Ensure that your characters are in their home worlds and close to retainer bells, preferably in not crowded areas. No housing retainer bells. The suggested place is the inn.");
-            ImGuiEx.TextWrapped("4. Characters that ran out of ventures or inventory space will be automatically excluded from rotation. You will need to reenable them once you clean up inventory and restock ventures.");
-            ImGuiEx.TextWrapped("5. You may set up one character to be preferred. When no retainers have upcoming ventures in next 15 minutes, you will be relogged back on that character.");
+            ImGuiEx.TextWrapped(Language.Language.Instance.TextWrapped_1);
+            ImGuiEx.TextWrapped(Language.Language.Instance.TextWrapped_2);
+            ImGuiEx.TextWrapped(Language.Language.Instance.TextWrapped_3);
+            ImGuiEx.TextWrapped(Language.Language.Instance.TextWrapped_4);
+            ImGuiEx.TextWrapped(Language.Language.Instance.TextWrapped_5);
         }
         if (ImGui.CollapsingHeader("Configuration")) 
         {

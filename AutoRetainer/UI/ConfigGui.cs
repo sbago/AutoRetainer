@@ -28,7 +28,7 @@ unsafe internal class ConfigGui : Window
             }
         }
         var en = P.IsEnabled();
-        if (ImGui.Checkbox($"Enable {P.Name}", ref en))
+        if (ImGui.Checkbox(string.Format(Language.Language.Instance.Checkbox_Enable,P.Name), ref en))
         {
             if (en)
             {
@@ -40,10 +40,20 @@ unsafe internal class ConfigGui : Window
             }
         }
         ImGui.SameLine();
-        ImGui.Checkbox("Auto Enable", ref P.config.AutoEnableDisable);
+        ImGui.Checkbox(Language.Language.Instance.Checkbox_AutoEnable, ref P.config.AutoEnableDisable);
 
         ImGui.SameLine();
-        ImGui.Checkbox("Multi", ref MultiMode.Enabled);
+        ImGui.Checkbox(Language.Language.Instance.Checkbox_Multi, ref MultiMode.Enabled);
+
+        ImGui.SameLine(0,20);
+        var last = P.config.LanguageType;
+        UiHelper.DrawEnum(Language.Language.Instance.DrawEnum_Language, ref last,100,5);
+        if (last != P.config.LanguageType)
+        {
+            P.config.LanguageType = last;
+            Language.Language.Instance = Language.LanguageManager.GetLan(last);
+            Svc.PluginInterface.SavePluginConfig(P.config);
+        }
 
         if (Scheduler.turbo)
         {
@@ -51,16 +61,16 @@ unsafe internal class ConfigGui : Window
             ImGuiEx.Text(Environment.TickCount % 1000 > 500 ? ImGuiColors.DalamudRed : ImGuiColors.DalamudYellow, "Turbo active");
         }
         ImGuiEx.EzTabBar("tabbar",
-                ("Retainers", Retainers.Draw, null, true),
+                (Language.Language.Instance.EzTabBar_Retainers, Retainers.Draw, null, true),
 
-                ("Multi Mode", MultiModeUI.Draw, null, true),
+                (Language.Language.Instance.EzTabBar_MultiMode, MultiModeUI.Draw, null, true),
 
-                (P.config.RecordStats?"Statistics":null, StatisticsUI.Draw, null, true),
-                ("Settings", Settings.Draw, null, true),
-                ("Beta", TabBeta.Draw, null, true),
-                ("About", delegate { AboutTab.Draw(P); }, null, true),
-                (P.config.Verbose ? "Log" : null, InternalLog.PrintImgui, null, false),
-                (P.config.Verbose?"Debug":null, Debug.Draw, null, true)
+                (P.config.RecordStats? Language.Language.Instance.EzTabBar_Statistics: null, StatisticsUI.Draw, null, true),
+                (Language.Language.Instance.EzTabBar_Settings, Settings.Draw, null, true),
+                (Language.Language.Instance.EzTabBar_Beta, TabBeta.Draw, null, true),
+                (Language.Language.Instance.EzTabBar_About, delegate { AboutTab.Draw(P); }, null, true),
+                (P.config.Verbose ? Language.Language.Instance.EzTabBar_Log : null, InternalLog.PrintImgui, null, false),
+                (P.config.Verbose? Language.Language.Instance.EzTabBar_Debug: null, Debug.Draw, null, true)
                 );
     }
 

@@ -1,4 +1,5 @@
-﻿using AutoRetainer.Offline;
+﻿using AutoRetainer.Language;
+using AutoRetainer.Offline;
 using Dalamud.Configuration;
 using System.Windows.Forms;
 
@@ -30,6 +31,7 @@ internal class Config : IPluginConfiguration
     public bool SS = false;
     internal bool BypassSanctuaryCheck = false;
     public bool MultiAllowHET = false;
+    public LanguageType LanguageType = LanguageType.EN;
 
     internal bool AutoCloseRetainerWindow
     {
