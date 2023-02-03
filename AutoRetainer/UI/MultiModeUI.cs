@@ -163,7 +163,9 @@ internal unsafe static class MultiModeUI
                 ImGui.SameLine();
                 if(ImGui.Button($"Delete##Delete{index}"))
                 {
-                    P.config.OfflineData.Remove(x);
+                    var result = System.Windows.Forms.MessageBox.Show($"Confirm delete {x}","",System.Windows.Forms.MessageBoxButtons.YesNo);
+                    if (result == System.Windows.Forms.DialogResult.Yes)
+                        P.config.OfflineData.Remove(x);
                 }
                 ImGuiEx.Text($"Ventures: {x.Ventures}");
                 ImGui.SameLine();
