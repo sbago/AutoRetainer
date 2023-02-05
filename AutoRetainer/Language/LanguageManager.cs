@@ -11,8 +11,9 @@ namespace AutoRetainer.Language
     {
         public static Dictionary<LanguageType, Language> AllLans = new Dictionary<LanguageType, Language>();
 
-        public static Language Init(LanguageType languageType, string dir = "Language")
+        public static Language Init(LanguageType languageType, string path, string dir = "Language")
         {
+            dir = path + "\\" + dir;
             Directory.CreateDirectory(dir);
             var files = Directory.GetFiles(dir, "Lan_*.toml");
 

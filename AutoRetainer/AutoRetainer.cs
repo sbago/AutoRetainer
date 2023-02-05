@@ -43,8 +43,7 @@ public class AutoRetainer : IDalamudPlugin
             configGui = new();
             TaskManager = new() { AbortOnTimeout = true };
             Memory = new();
-            Environment.CurrentDirectory = pi.AssemblyLocation.Directory.FullName;
-            Language.Language.Instance = Language.LanguageManager.Init(config.LanguageType);
+            Language.Language.Instance = Language.LanguageManager.Init(config.LanguageType, pi.AssemblyLocation.Directory.FullName);
             Svc.PluginInterface.UiBuilder.Draw += ws.Draw;
             Svc.PluginInterface.UiBuilder.OpenConfigUi += delegate { configGui.IsOpen = true; };
             Svc.ClientState.Logout += Logout;
