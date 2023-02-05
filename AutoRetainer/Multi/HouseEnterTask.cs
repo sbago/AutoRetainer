@@ -29,7 +29,7 @@ namespace AutoRetainer.Multi
             P.TaskManager.Enqueue(WaitUntilLeavingZone);
         }
 
-        internal static bool WaitUntilNotBusy()
+        internal static bool? WaitUntilNotBusy()
         {
             if (MultiMode.IsInteractionAllowed())
             {
@@ -38,7 +38,7 @@ namespace AutoRetainer.Multi
             return false;
         }
 
-        internal static bool Turn()
+        internal static bool? Turn()
         {
             var entrance = Utils.GetNearestEntrance(out var d);
             if(entrance != null && d < 20f)
@@ -59,14 +59,14 @@ namespace AutoRetainer.Multi
             return false;
         }
 
-        internal static bool Approach()
+        internal static bool? Approach()
         {
             PluginLog.Debug($"Enabling");
             Chat.Instance.SendMessage("/automove on");
             return true;
         }
         
-        internal static bool AutorunOff()
+        internal static bool? AutorunOff()
         {
             var entrance = Utils.GetNearestEntrance(out var d);
             if(entrance != null && d < 2f)
@@ -78,7 +78,7 @@ namespace AutoRetainer.Multi
             return false;
         }
 
-        internal static bool SetTarget()
+        internal static bool? SetTarget()
         {
             var entrance = Utils.GetNearestEntrance(out var d);
             if (entrance != null && d < 5f)
@@ -90,7 +90,7 @@ namespace AutoRetainer.Multi
             return false;
         }
 
-        internal static bool Interact()
+        internal static bool? Interact()
         {
             var entrance = Utils.GetNearestEntrance(out var d);
             if (entrance != null && Svc.Targets.Target?.Address == entrance.Address && EzThrottler.Throttle("HET.Interact", 1000))
@@ -102,7 +102,7 @@ namespace AutoRetainer.Multi
             return false;
         }
 
-        internal static bool SelectYesno()
+        internal static bool? SelectYesno()
         {
             if (!ResidentalAreas.List.Contains(Svc.ClientState.TerritoryType))
             {
@@ -118,7 +118,7 @@ namespace AutoRetainer.Multi
             return false;
         }
 
-        internal static bool WaitUntilLeavingZone()
+        internal static bool? WaitUntilLeavingZone()
         {
             return !ResidentalAreas.List.Contains(Svc.ClientState.TerritoryType);
         }
