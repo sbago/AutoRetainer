@@ -13,20 +13,20 @@ internal static class Settings
     internal static void Draw()
     {
         ImGuiHelpers.ScaledDummy(5f);
-        InfoBox.DrawBox("Settings", delegate
+        InfoBox.DrawBox(Language.Language.Instance.Setting_Settings, delegate
         {
-            ImGui.Checkbox("Semi-automatic Mode", ref P.config.AutoEnableDisable);
-            ImGuiComponents.HelpMarker("Automatically enables the plugin on Summoning Bell interaction. You can hold down the SHIFT key to disable this behavior.");
-            ImGui.Checkbox("Turbo Mode", ref P.config.TurboMode);
-            ImGuiComponents.HelpMarker("Rapidly collect rewards and despatch retainers on new ventures. Only works in semi-automatic mode/with manual player interaction.");
+            ImGui.Checkbox(Language.Language.Instance.Setting_AutoEnableDisable, ref P.config.AutoEnableDisable);
+            ImGuiComponents.HelpMarker(Language.Language.Instance.Setting_AutoEnableDisable_HelpMarker);
+            ImGui.Checkbox(Language.Language.Instance.Setting_TurboMode, ref P.config.TurboMode);
+            ImGuiComponents.HelpMarker(Language.Language.Instance.Setting_TurboMode_HelpMarker);
             ImGui.SetNextItemWidth(100f);
-            ImGui.SliderInt("Time Desynchronization Compensation", ref P.config.UnsyncCompensation.ValidateRange(-60, 0), -10, 0);
-            ImGuiComponents.HelpMarker("Additional amount of seconds that will be subtracted from venture ending time to help mitigate possible issues of time desynchronization between the game and your PC. ");
+            ImGui.SliderInt(Language.Language.Instance.Setting_UnsyncCompensation, ref P.config.UnsyncCompensation.ValidateRange(-60, 0), -10, 0);
+            ImGuiComponents.HelpMarker(Language.Language.Instance.Setting_UnsyncCompensation_HelpMarker);
             ImGui.SetNextItemWidth(100f);
-            ImGui.SliderInt("Interaction Speed (%)", ref P.config.Speed.ValidateRange(10, 1000), 10, 300);
-            ImGuiComponents.HelpMarker("The higher this value is the faster plugin will operate retainers. When dealing with low FPS or high latency you may want to decrease this value. If you want the plugin to operate faster you may increase it.");
-            ImGui.Checkbox("Anonymise Retainers", ref P.config.NoNames);
-            ImGuiComponents.HelpMarker("Retainer names will be redacted from general UI elements. They will not be hidden in debug menus and plugin logs however. While this option is on, character and retainer numbers are not guaranteed to be equal in different sections of a plugin (for example, retainer 1 in retainers view is not guaranteed to be the same retainer as in statistics view).");
+            ImGui.SliderInt(Language.Language.Instance.Setting_TurboMode, ref P.config.Speed.ValidateRange(10, 1000), 10, 300);
+            ImGuiComponents.HelpMarker(Language.Language.Instance.Setting_TurboMode_HelpMarker);
+            ImGui.Checkbox(Language.Language.Instance.Setting_AnonymiseRetainers, ref P.config.NoNames);
+            ImGuiComponents.HelpMarker(Language.Language.Instance.Setting_AnonymiseRetainers_HelpMarker);
         });
         InfoBox.DrawBox("Operation", delegate
         {

@@ -44,7 +44,7 @@ namespace AutoRetainer.Language
                         {
                             continue;
                         }
-                        var lan = SerializeHelper.LoadFrom<Language>(v, out var a);
+                        var lan = SerializeHelper.LoadFrom<Language>(v);
                         AllLans.Add(lan.LanType, lan);
                     }
                     catch (Exception e)

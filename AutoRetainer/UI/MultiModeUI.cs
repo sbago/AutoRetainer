@@ -23,14 +23,14 @@ internal unsafe static class MultiModeUI
             ImGuiEx.TextWrapped(Language.Language.Instance.TextWrapped_4);
             ImGuiEx.TextWrapped(Language.Language.Instance.TextWrapped_5);
         }
-        if (ImGui.CollapsingHeader("Configuration")) 
+        if (ImGui.CollapsingHeader(Language.Language.Instance.CollapsingHeader_Configuration)) 
         {
             //ImGui.Checkbox($"I have multiple service accounts", ref P.config.MultipleServiceAccounts);
-            ImGui.Checkbox("Wait for all retainers to be done before logging into character", ref P.config.MultiWaitForAll);
+            ImGui.Checkbox(Language.Language.Instance.Checkbox_MultiWaitForAll, ref P.config.MultiWaitForAll);
             ImGui.SetNextItemWidth(60);
-            ImGui.DragInt("Relog in advance, seconds", ref P.config.AdvanceTimer.ValidateRange(0, 300), 0.1f, 0, 300);
-            ImGui.Checkbox("Synchronize retainers (one time)", ref MultiMode.Synchronize);
-            ImGuiComponents.HelpMarker("If this setting is on, plugin will wait until all enabled retainers have done their ventures. After that this setting will be disabled automatically and all characters will be processed.");
+            ImGui.DragInt(Language.Language.Instance.DragInt_AdvanceTimer, ref P.config.AdvanceTimer.ValidateRange(0, 300), 0.1f, 0, 300);
+            ImGui.Checkbox(Language.Language.Instance.Checkbox_Synchronize, ref MultiMode.Synchronize);
+            ImGuiComponents.HelpMarker(Language.Language.Instance.HelpMarker_Synchronize);
         }
         for(var index = 0; index < P.config.OfflineData.Count; index++)
         {
@@ -43,11 +43,11 @@ internal unsafe static class MultiModeUI
                 if(x.Enabled && !x.Index.InRange(1, 9))
                 {
                     x.Enabled = false;
-                    Notify.Error("Set character index first");
+                    Notify.Error(Language.Language.Instance.Notify_Error_Setcharacterindexfirst);
                 }
             }
             ImGui.SameLine();
-            if (ImGui.Button("Relog"))
+            if (ImGui.Button(Language.Language.Instance.Button_Relog))
             {
                 if (MultiMode.Enabled)
                 {
@@ -55,11 +55,11 @@ internal unsafe static class MultiModeUI
                     {
                         z.Preferred = false;
                     }
-                    Notify.Warning("Preferred character has been reset");
+                    Notify.Warning(Language.Language.Instance.Notify_Warning_Preferredcharacterhasbeenreset);
                 }
                 if(MultiMode.Relog(x, out var error))
                 {
-                    Notify.Success("Relogging...");
+                    Notify.Success(Language.Language.Instance.Notify_Success_Relogging);
                 }
                 else
                 {
@@ -82,7 +82,7 @@ internal unsafe static class MultiModeUI
             {
                 ImGui.PushStyleColor(ImGuiCol.Text, GradientColor.Get(ImGui.GetStyle().Colors[(int)ImGuiCol.Text], ImGuiColors.ParsedGreen));
             }
-            if (ImGui.CollapsingHeader((P.config.NoNames?$"Character {index+1}":$"{x}")+$"###chara{x.CID}"))
+            if (ImGui.CollapsingHeader((P.config.NoNames?string.Format(Language.Language.Instance.CollapsingHeader_Characterindex,index) :$"{x}")+$"###chara{x.CID}"))
             {
                 SetAsPreferred(x);
                 if (col)
@@ -93,7 +93,7 @@ internal unsafe static class MultiModeUI
                 pad = ImGui.GetStyle().FramePadding.Y;
                 var enabledRetainers = x.GetEnabledRetainers();
 
-                ImGuiEx.TextV("Character index:");
+                ImGuiEx.TextV(Language.Language.Instance.TextV_Characterindex);
                 ImGui.SameLine();
                 ImGui.SetNextItemWidth(100);
                 if (ImGui.BeginCombo("##index", x.Index == 0?"n/a":x.Index.ToString()))
